@@ -1,0 +1,96 @@
+﻿@page "/"
+@using Jobsity.EwsChat.Shared.SignalR.Extensions
+@using Jobsity.EwsChat.Shared.SignalR.Providers
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+@inject NavigationManager NavigationManager
+@inject IHubConnectionProvider HubConnectionProvider
+@inject HttpClient Http
+
+<PageTitle>EwsChat</PageTitle>
+<h2>EwsChat for Jobsity</h2>
+
+@if (!IsConnected)
+{
+    <div class="input-group">
+        <input @bind="username" class="form-control" placeholder="Type your username" />
+        <button class="btn btn-primary form-control-append" @onclick="Connect">Connect</button>
+    </div>
+}
+else
+{
+    <textarea style="width: 100%; height: 500px">
+        @chatMessages
+    </textarea>
+    <div class="input-group">
+        <input @bind="message" @bind:event="oninput" @onkeyup="HandleKeyup" class="form-control" />
+        <button class="btn btn-primary form-group-append" @onclick="Send">Send</button>
+    </div>
+}
+
+@code
+{
+    private const int MaxNumberOfMessages = 50;
+    private readonly Queue<string> _messageStore = new();
+
+    private HubConnection? _hubConnection;
+    private string chatMessages = string.Empty;
+    private string username = string.Empty;
+    private string message = string.Empty;
+
+    public bool IsConnected => _hubConnection?.State == HubConnectionState.Connected;
+
+    private async Task Connect()
+    {
+        var chatHubUri = NavigationManager.ToAbsoluteUri($"/chathub?user={username}");
+
+        void HandleNewMessage(string user, string newMessage)
+        {
+            var messageSender = string.IsNullOrEmpty(user) ? string.Empty : $"{user}: ";
+            var msg = $"{messageSender} {newMessage}";
+            chatMessages = GetChatMessages(msg);
+            StateHasChanged();
+        }
+
+        _hubConnection = HubConnectionProvider.CreateConnection(chatHubUri);
+        _hubConnection.HandleAction("ReceiveMessage", (Action<string, string>) HandleNewMessage);
+
+        await _hubConnection.StartAsync();
+    }
+
+    private string GetChatMessages(string newMessage)
+    {
+        var sentAt = TimeOnly.FromDateTime(DateTime.Now);
+        newMessage = $"[{sentAt:hh:mm:ss}] {newMessage}";
+
+        _messageStore.Enqueue(newMessage);
+
+        if (_messageStore.Count > MaxNumberOfMessages)
+        {
+            _messageStore.Dequeue();
+        }
+
+        return string.Join(Environment.NewLine, _messageStore.ToList());
+    }
+
+    private async Task HandleKeyup(KeyboardEventArgs keyboardEvent)
+    {
+        if (keyboardEvent.Key.Equals("Enter"))
+        {
+            await Send();
+        }
+        
+    }
+
+    private async Task Send()
+    {
+        if (_hubConnection is not null)
+        {
+            await _hubConnection.SendAsync("AddMessage", username, message);
+            message = string.Empty;
+        }
+    }
+
+
+
+}
