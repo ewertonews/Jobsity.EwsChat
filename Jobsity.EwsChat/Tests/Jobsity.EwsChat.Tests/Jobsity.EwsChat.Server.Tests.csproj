@@ -23,8 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Server\Jobsity.EwsChat.Server.csproj" />
-    <ProjectReference Include="..\..\Shared\Jobsity.EwsChat.Shared.csproj" />
+    <ProjectReference Include="..\..\src\Server\Jobsity.EwsChat.Server.csproj" />
+    <ProjectReference Include="..\..\src\Shared\Jobsity.EwsChat.Shared.csproj" />
   </ItemGroup>
 
 </Project>

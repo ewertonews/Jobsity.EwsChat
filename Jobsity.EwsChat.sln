@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobsity.EwsChat.Server", "Jobsity.EwsChat\Server\Jobsity.EwsChat.Server.csproj", "{E9651751-E495-4E2B-BF01-10811A0AE47F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobsity.EwsChat.Server", "Jobsity.EwsChat\src\Server\Jobsity.EwsChat.Server.csproj", "{E9651751-E495-4E2B-BF01-10811A0AE47F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobsity.EwsChat.Client", "Jobsity.EwsChat\Client\Jobsity.EwsChat.Client.csproj", "{211D9A0C-DE23-497A-8A5A-A834940E9939}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobsity.EwsChat.Client", "Jobsity.EwsChat\src\Client\Jobsity.EwsChat.Client.csproj", "{211D9A0C-DE23-497A-8A5A-A834940E9939}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobsity.EwsChat.Shared", "Jobsity.EwsChat\Shared\Jobsity.EwsChat.Shared.csproj", "{C65EBBE3-C7AF-48A6-A544-3EBD27790006}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobsity.EwsChat.Shared", "Jobsity.EwsChat\src\Shared\Jobsity.EwsChat.Shared.csproj", "{C65EBBE3-C7AF-48A6-A544-3EBD27790006}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobsity.EwsChat.Server.Tests", "Jobsity.EwsChat\Tests\Jobsity.EwsChat.Tests\Jobsity.EwsChat.Server.Tests.csproj", "{4E26C7CB-46F3-4478-9F6C-26FD1E74B4B0}"
 EndProject
