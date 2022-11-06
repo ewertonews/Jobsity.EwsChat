@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobsity.EwsChat.Client", "J
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobsity.EwsChat.Shared", "Jobsity.EwsChat\Shared\Jobsity.EwsChat.Shared.csproj", "{C65EBBE3-C7AF-48A6-A544-3EBD27790006}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobsity.EwsChat.Data", "Jobsity.EwsChat\Data\Jobsity.EwsChat.Data\Jobsity.EwsChat.Data.csproj", "{C347C20A-09BC-458C-9F84-68BE219E54D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobsity.EwsChat.Server.Tests", "Jobsity.EwsChat\Tests\Jobsity.EwsChat.Tests\Jobsity.EwsChat.Server.Tests.csproj", "{4E26C7CB-46F3-4478-9F6C-26FD1E74B4B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{C65EBBE3-C7AF-48A6-A544-3EBD27790006}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C65EBBE3-C7AF-48A6-A544-3EBD27790006}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C65EBBE3-C7AF-48A6-A544-3EBD27790006}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C347C20A-09BC-458C-9F84-68BE219E54D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C347C20A-09BC-458C-9F84-68BE219E54D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C347C20A-09BC-458C-9F84-68BE219E54D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C347C20A-09BC-458C-9F84-68BE219E54D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E26C7CB-46F3-4478-9F6C-26FD1E74B4B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E26C7CB-46F3-4478-9F6C-26FD1E74B4B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E26C7CB-46F3-4478-9F6C-26FD1E74B4B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E26C7CB-46F3-4478-9F6C-26FD1E74B4B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

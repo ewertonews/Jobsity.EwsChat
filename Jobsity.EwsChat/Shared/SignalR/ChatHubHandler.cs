@@ -7,7 +7,7 @@ namespace Jobsity.EwsChat.Shared.SignalR
     public class ChatHubHandler : IHubHandler
     {
 
-        private HubConnection _hubConnection = null!;
+        private HubConnection _hubConnection;
         private readonly IHubConnectionProvider _hubConnectionProvider;
         private readonly ILoggingService _loggingService;
 

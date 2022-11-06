@@ -57,13 +57,13 @@ namespace Jobsity.EwsChat.Server.Queuing
                 };
 
                 _ = _channel.BasicConsume(_queueName, false, consumer);
-                return Task.CompletedTask;
+                
             }
             catch (Exception exception)
             {
                 _loggingService.LogError($"Unable to consume from the queue: {_queueName}", exception);
             }
-           
+            return Task.CompletedTask;
         }
 
         private async Task HandleMessage(string message)

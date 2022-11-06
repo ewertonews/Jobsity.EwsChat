@@ -16,8 +16,8 @@ namespace Jobsity.EwsChat.Server.Services
         public ChatBotService(
             IHubHandler chatHubHandler,
             IStockInfoRequestSender stockInfoRequestSender,
-            string baseUrl,
-            ILoggingService loggingService)
+            ILoggingService loggingService,
+            string baseUrl)
         {
             _chatHubHandler = chatHubHandler;
             _stockInfoRequestSender = stockInfoRequestSender;

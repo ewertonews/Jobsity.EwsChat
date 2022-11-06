@@ -2,6 +2,7 @@
 using Jobsity.EwsChat.Server.Queuing;
 using Jobsity.EwsChat.Server.Queuing.Options;
 using Jobsity.EwsChat.Server.Services;
+using Jobsity.EwsChat.Shared;
 using Jobsity.EwsChat.Shared.SignalR;
 using Jobsity.EwsChat.Shared.SignalR.Providers;
 using Microsoft.OpenApi.Models;
@@ -31,6 +32,7 @@ namespace Jobsity.EwsChat.Server.Extensions
             builder.Services.AddSingleton<IChatBotService>(services => new ChatBotService(
                 services.GetRequiredService<IHubHandler>(),
                 services.GetRequiredService<IStockInfoRequestSender>(),
+                services.GetRequiredService<ILoggingService>(),
                 hostUrl));
 
             builder.Services.AddHostedService<StockInfoRequestReceiver>();
