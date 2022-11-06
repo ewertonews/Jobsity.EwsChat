@@ -9,34 +9,50 @@ namespace Jobsity.EwsChat.Shared.SignalR
 
         private HubConnection _hubConnection = null!;
         private readonly IHubConnectionProvider _hubConnectionProvider;
+        private readonly ILoggingService _loggingService;
 
-        public ChatHubHandler(IHubConnectionProvider hubConnectionProvider)
+        public ChatHubHandler(IHubConnectionProvider hubConnectionProvider, ILoggingService loggingService)
         {
             _hubConnectionProvider = hubConnectionProvider;
+            _loggingService = loggingService;
         }
 
         public bool IsConnected() => _hubConnection.State == HubConnectionState.Connected;
 
-        public HubConnection GetConnection(Uri? chatUri = null)
+        public async Task<HubConnection> GetConnection(Uri? hubUri = null, bool start = true)
         {
-            chatUri ??= new Uri("/chathub");
-            return _hubConnection ??= _hubConnectionProvider.CreateConnection(chatUri);
+            hubUri ??= new Uri("/chathub");
+            _hubConnection ??= _hubConnectionProvider.CreateConnection(hubUri);
+
+            try
+            {
+                if (start && !IsConnected())
+                {
+                    await _hubConnection.StartAsync();
+                }
+            }
+            catch (Exception exception)
+            {
+                _loggingService.LogError("Unable to create connection with the chat hub.", exception);
+                throw;
+            }
+            
+
+            return _hubConnection;
         }
 
-        public Task StablishHubConnection()
+        public async Task StablishHubConnection()
         {
-            throw new NotImplementedException();
+            await _hubConnection.StartAsync();
         }
 
         public void SetMethodNameAndHandler<T>(string methodName, Action<T, T> messageHandler)
         {
-            //methodName = ReceiveMessage
             _hubConnection.HandleAction(methodName, messageHandler);
         }
 
         public async Task Send(string methodName, object? arg1, object? arg2)
         {
-            //method name: AddMessage
             await _hubConnection.SendAsync(methodName, arg1, arg2);
         }
     }
