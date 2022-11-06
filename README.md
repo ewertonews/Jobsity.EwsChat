@@ -1,5 +1,5 @@
 # Jobsity.EwsChat
 
 Used:
-SignalR
+SignalR <br>
 Rabbit MQ
