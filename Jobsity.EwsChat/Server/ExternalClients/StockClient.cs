@@ -1,5 +1,6 @@
 ﻿using CsvHelper;
 using Jobsity.EwsChat.Server.DTO;
+using Jobsity.EwsChat.Shared;
 using System.Globalization;
 
 namespace Jobsity.EwsChat.Server.ExternalClients
@@ -7,18 +8,18 @@ namespace Jobsity.EwsChat.Server.ExternalClients
     public class StockClient : IStockClient
     {
         private readonly HttpClient _httpClient;
-        private readonly ILogger<StockClient> _logger;
+        private readonly ILoggingService _loggingService;
 
-        public StockClient(HttpClient httpClient, ILogger<StockClient> logger)
+        public StockClient(HttpClient httpClient, ILoggingService loggingService)
         {
             _httpClient = httpClient;
-            _logger = logger;
+            _loggingService = loggingService;
         }
 
         public async Task<StockDto> GetStockInfo(string stockSymbol)
         {
 
-            var stockUri = new Uri($"/q/l/?s={stockSymbol}&f=sd2t2ohlcv&h&e=csv");
+            var stockUri = new Uri(_httpClient.BaseAddress, $"/q/l/?s={stockSymbol}&f=sd2t2ohlcv&h&e=csv");
             var request = new HttpRequestMessage(HttpMethod.Get, stockUri);
             var response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
@@ -41,9 +42,10 @@ namespace Jobsity.EwsChat.Server.ExternalClients
                 stock = recordsList.Any() ? recordsList[0] : stock;
 
             }
-            catch (CsvHelperException csvhex)
+            catch (CsvHelper.CsvHelperException csvhex)
             {
-                _logger.LogError("Unable to parse content of stock information from retrieved CSV.", csvhex);
+                _loggingService.LogError("Unable to parse content of stock information from retrieved CSV.", csvhex);
+                throw;
             }
 
             return stock;
